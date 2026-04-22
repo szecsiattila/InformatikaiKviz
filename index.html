@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Informatika kvíz</title>
+<style>
+body { font-family: Arial; max-width: 700px; margin: auto; padding: 20px; }
+.question { margin-bottom: 20px; }
+button { padding: 10px; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<h2>Informatika kvíz</h2>
+
+<div id="quiz"></div>
+<button onclick="checkAnswers()">Ellenőrzés</button>
+<p id="result"></p>
+
+<script>
+const questions = [
+  {
+    q: "Mi az IP cím?",
+    options: ["Számítógép neve", "Hálózati azonosító", "Program", "Fájl"],
+    answer: 1
+  },
+  {
+    q: "Mit jelent a HTML?",
+    options: ["Hyper Text Markup Language", "High Tech Machine Language", "Home Tool Markup", "Hyperlink Text Mode"],
+    answer: 0
+  },
+  {
+    q: "Mi az operációs rendszer feladata?",
+    options: ["Játék futtatás", "Hardver kezelése", "Internet biztosítása", "Szövegszerkesztés"],
+    answer: 1
+  },
+  {
+    q: "Mi a RAM szerepe?",
+    options: ["Adatok tartós tárolása", "Ideiglenes memória", "Processzor hűtése", "Hálózat kezelése"],
+    answer: 1
+  },
+  {
+    q: "Mi a CPU?",
+    options: ["Videokártya", "Processzor", "Memória", "Tápegység"],
+    answer: 1
+  },
+  {
+    q: "Melyik nem operációs rendszer?",
+    options: ["Windows", "Linux", "Photoshop", "macOS"],
+    answer: 2
+  },
+  {
+    q: "Mi a HTTP?",
+    options: ["Fájlrendszer", "Webes protokoll", "Programozási nyelv", "Operációs rendszer"],
+    answer: 1
+  },
+  {
+    q: "Mi az URL?",
+    options: ["E-mail cím", "Webcím", "IP cím", "Fájltípus"],
+    answer: 1
+  },
+  {
+    q: "Mi a böngésző feladata?",
+    options: ["Programozás", "Weboldalak megjelenítése", "Hardver kezelés", "Adatmentés"],
+    answer: 1
+  },
+  {
+    q: "Mi a fájl kiterjesztése?",
+    options: ["Fájl neve", "Fájl mérete", "Fájl típusa", "Fájl helye"],
+    answer: 2
+  }
+];
+
+const quizDiv = document.getElementById("quiz");
+
+questions.forEach((q, i) => {
+  const div = document.createElement("div");
+  div.classList.add("question");
+  div.innerHTML = `<p><b>${i+1}. ${q.q}</b></p>` +
+    q.options.map((opt, j) =>
+      `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`
+    ).join("");
+  quizDiv.appendChild(div);
+});
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((q, i) => {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    if (selected && Number(selected.value) === q.answer) {
+      score++;
+    }
+  });
+  document.getElementById("result").innerText =
+    `Pontszám: ${score}/${questions.length}`;
+}
+</script>
+
+</body>
+</html>
